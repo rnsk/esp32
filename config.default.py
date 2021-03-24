@@ -26,3 +26,4 @@ MQTT_TOPIC = ''
 # config.CDS_xxx
 # ADC Pins 32-39
 CDS_PIN = 32
+CDS_EXPECTED = 100

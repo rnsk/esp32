@@ -57,7 +57,7 @@ def main():
     cds = CdS(config.CDS_PIN)
 
     while True:
-        value = cds.read_data()
+        value = cds.is_less_than(config.CDS_EXPECTED)
         data = {
             "deviceid": config.DEVICE_ID,
             "devicename": config.DEVICE_NAME,

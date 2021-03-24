@@ -19,3 +19,47 @@ class CdS:
             integer: The return value.
         """
         return self.adc.read()
+
+    def is_greater_than(self, expected):
+        """センサの値を比較する
+        expected < value が成立するかどうか
+
+        Args:
+            expected (int): 比較対象の数値
+        Returns:
+            bool: The return Result of comparison.
+        """
+        return expected < self.adc.read()
+
+    def is_greater_than_or_equal(self, expected):
+        """センサの値を比較する
+        expected <= value が成立するかどうか
+
+        Args:
+            expected (int): 比較対象の数値
+        Returns:
+            bool: The return Result of comparison.
+        """
+        return expected <= self.adc.read()
+
+    def is_less_than(self, expected):
+        """センサの値を比較する
+        expected > value が成立するかどうか
+
+        Args:
+            expected (int): 比較対象の数値
+        Returns:
+            bool: The return Result of comparison.
+        """
+        return expected > self.adc.read()
+
+    def is_less_than_or_equal(self, expected):
+        """センサの値を比較する
+        expected >= value が成立するかどうか
+
+        Args:
+            expected (int): 比較対象の数値
+        Returns:
+            bool: The return Result of comparison.
+        """
+        return expected >= self.adc.read()
