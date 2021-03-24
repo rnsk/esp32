@@ -53,9 +53,11 @@ def main():
     do_connect(ssid, password)
     time.sleep(5)
 
+    from ulib.cds import CdS
+    cds = CdS(config.CDS_PIN)
+
     while True:
-        # Todo: センサーからデータを取得する
-        value = "データ"
+        value = cds.read_data()
         data = {
             "deviceid": config.DEVICE_ID,
             "devicename": config.DEVICE_NAME,

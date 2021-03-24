@@ -21,3 +21,8 @@ DEVICE_NAME = ''
 MQTT_HOST = 'localhost'
 MQTT_PORT = 1883
 MQTT_TOPIC = ''
+
+# CdS setting
+# config.CDS_xxx
+# ADC Pins 32-39
+CDS_PIN = 32
