@@ -40,7 +40,13 @@ def do_publish(topic, message):
         topic {"devicename": "ESP32", "value": "データ", "deviceid": "001"}
     """
     from ulib.umqtt import MQTTClient
-    client = MQTTClient(config.DEVICE_ID, config.MQTT_HOST, config.MQTT_PORT)
+    client = MQTTClient(
+        config.DEVICE_ID,
+        config.MQTT_HOST,
+        config.MQTT_PORT,
+        config.MQTT_USER,
+        config.MQTT_PASS
+    )
     client.connect()
     client.publish(bytearray(topic), bytearray(message))
     time.sleep(1)

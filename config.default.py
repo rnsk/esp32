@@ -20,6 +20,8 @@ DEVICE_NAME = ''
 # config.MQTT_xxx
 MQTT_HOST = 'localhost'
 MQTT_PORT = 1883
+MQTT_USER = ''
+MQTT_PASS = ''
 MQTT_TOPIC = ''
 
 # CdS setting
