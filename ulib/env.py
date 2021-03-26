@@ -10,12 +10,12 @@ import dht
 from machine import Pin
 
 class ENV:
-    def __init__(self, env_type, pin_id):
+    def __init__(self, pin_id, env_type):
         """Initialize
 
         Args:
-            env_type (str): センサーの種別（temperature, humidity）
             pin_id (int): センサーのPIN番号
+            env_type (str): センサーの種別（temperature, humidity）
         """
         self.env_type = env_type
 
