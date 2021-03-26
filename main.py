@@ -9,6 +9,7 @@
 import app
 
 try:
+    app.setup()
     app.main()
 except:
     print('main() function in app.py could not be executed')

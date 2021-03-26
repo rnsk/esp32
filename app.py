@@ -52,13 +52,13 @@ def do_publish(topic, message):
     time.sleep(1)
     client.disconnect()
 
-def main():
+def setup():
     ssid = config.WIFI_SSID
     password = config.WIFI_PASSWORD
-
     do_connect(ssid, password)
     time.sleep(5)
 
+def main():
     from ulib.cds import CdS
     cds = CdS(config.CDS_PIN)
 
@@ -80,6 +80,7 @@ def main():
 
 if __name__ == '__main__':
     try:
+        setup()
         main()
     except KeyboardInterrupt:
         pass
