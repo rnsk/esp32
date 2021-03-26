@@ -29,3 +29,9 @@ MQTT_TOPIC = ''
 # ADC Pins 32-39
 CDS_PIN = 32
 CDS_EXPECTED = 100
+
+# ENV setting
+# config.ENV_xxx
+# Available Pins 0, 2, 4, 5, 12, 13, 14, 15, 16.
+ENV_TEMPERATURE_PIN = 14
+ENV_HUMIDITY_PIN = 14
