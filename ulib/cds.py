@@ -10,6 +10,11 @@ from machine import Pin, ADC
 
 class CdS:
     def __init__(self, pin_id):
+        """Initialize
+
+        Args:
+            pin_id (int): センサーのPIN番号
+        """
         self.adc = ADC(Pin(pin_id))
 
     def read_data(self):
