@@ -35,3 +35,8 @@ CDS_EXPECTED = 100
 # Available Pins 0, 2, 4, 5, 12, 13, 14, 15, 16.
 ENV_TEMPERATURE_PIN = 14
 ENV_HUMIDITY_PIN = 14
+
+# LED setting
+# config.LED_xxx
+# Available Pins 0-19, 21-23, 25-27, 32-39
+LED_PIN = 12
