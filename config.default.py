@@ -40,3 +40,8 @@ ENV_HUMIDITY_PIN = 14
 # config.LED_xxx
 # Available Pins 0-19, 21-23, 25-27, 32-39
 LED_PIN = 12
+
+# Button setting
+# config.BUTTON_xxx
+# Available Pins 0-19, 21-23, 25-27, 32-39
+BUTTON_PIN = 27
