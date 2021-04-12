@@ -22,7 +22,7 @@ class ENV:
         if self.env_type in {'temperature', 'humidity'}:
             self.sensor = dht.DHT11(Pin(pin_id))
 
-    def read_data(self):
+    def read(self):
         """センサーの値を取得する
 
         Returns:
@@ -45,7 +45,7 @@ class ENV:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected < self.read_data()
+        return expected < self.read()
 
     def is_greater_than_or_equal(self, expected):
         """センサーの値を比較する
@@ -56,7 +56,7 @@ class ENV:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected <= self.read_data()
+        return expected <= self.read()
 
     def is_less_than(self, expected):
         """センサーの値を比較する
@@ -67,7 +67,7 @@ class ENV:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected > self.read_data()
+        return expected > self.read()
 
     def is_less_than_or_equal(self, expected):
         """センサーの値を比較する
@@ -78,4 +78,4 @@ class ENV:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected >= self.read_data()
+        return expected >= self.read()

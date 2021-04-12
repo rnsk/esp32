@@ -17,7 +17,7 @@ class CdS:
         """
         self.adc = ADC(Pin(pin_id))
 
-    def read_data(self):
+    def read(self):
         """センサーの値を取得する
 
         Returns:
@@ -34,7 +34,7 @@ class CdS:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected < self.adc.read()
+        return expected < self.read()
 
     def is_greater_than_or_equal(self, expected):
         """センサーの値を比較する
@@ -45,7 +45,7 @@ class CdS:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected <= self.adc.read()
+        return expected <= self.read()
 
     def is_less_than(self, expected):
         """センサーの値を比較する
@@ -56,7 +56,7 @@ class CdS:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected > self.adc.read()
+        return expected > self.read()
 
     def is_less_than_or_equal(self, expected):
         """センサーの値を比較する
@@ -67,4 +67,4 @@ class CdS:
         Returns:
             bool: The return Result of comparison.
         """
-        return expected >= self.adc.read()
+        return expected >= self.read()
