@@ -10,6 +10,7 @@ micropython-iot
     +-- config.py # 環境別設定ファイル（config.default.py をリネーム）
     +-- main.py # ボードが実行するファイル
     +-- ulib # ライブラリ群
+        +-- button.py # ボタンのライブラリ
         +-- cds.py # 光センサーのライブラリ
         +-- env.py # 環境センサーのライブラリ
         +-- led.py # LEDのライブラリ
@@ -219,4 +220,57 @@ ampy -p /dev/tty.SLAB_USBtoUART put main.py
 
 ```
 ampy -p /dev/tty.SLAB_USBtoUART rm main.py
+```
+
+## サンプルプログラム
+
+### ボタン
+
+ボタンを押したら True を送信する
+
+```python
+def main():
+    from ulib.button import Button
+    button = Button(config.BUTTON_PIN)
+
+    while True:
+        value = button.isPressed()
+        if (value):
+            data = {
+                "deviceid": config.DEVICE_ID,
+                "devicename": config.DEVICE_NAME,
+                "value": value
+            }
+            payload = ujson.dumps(data)
+
+            try:
+                do_publish(config.MQTT_TOPIC, payload)
+            except:
+                pass
+```
+
+### 光センサー
+
+一定の時間ごとに光センサーで取得した値を送信する
+
+```python
+def main():
+    from ulib.cds import CdS
+    cds = CdS(config.CDS_PIN)
+
+    while True:
+        value = cds.read(config.CDS_EXPECTED)
+        data = {
+            "deviceid": config.DEVICE_ID,
+            "devicename": config.DEVICE_NAME,
+            "value": value
+        }
+        payload = ujson.dumps(data)
+
+        try:
+            do_publish(config.MQTT_TOPIC, payload)
+        except:
+            pass
+
+        time.sleep(publish_interval)
 ```
