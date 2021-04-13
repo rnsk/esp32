@@ -259,7 +259,7 @@ def main():
     cds = CdS(config.CDS_PIN)
 
     while True:
-        value = cds.read(config.CDS_EXPECTED)
+        value = cds.read()
         data = {
             "deviceid": config.DEVICE_ID,
             "devicename": config.DEVICE_NAME,
@@ -273,4 +273,20 @@ def main():
             pass
 
         time.sleep(publish_interval)
+```
+
+### スレッドを使う
+
+```python
+import _thread
+
+def th_light():
+    """光センサーの処理など"""
+
+def th_button():
+    """ボタンの処理など"""
+
+def main():
+    _thread.start_new_thread(th_light, ())
+    _thread.start_new_thread(th_button, ())
 ```
