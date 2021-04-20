@@ -39,7 +39,7 @@ def do_publish(topic, message):
         $ mosquitto_sub -v -t topic -h localhost -p 1883
         topic {"devicename": "ESP32", "value": "データ", "deviceid": "001"}
     """
-    from ulib.umqtt import MQTTClient
+    from umqtt.simple import MQTTClient
     client = MQTTClient(
         config.DEVICE_ID,
         config.MQTT_HOST,

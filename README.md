@@ -14,7 +14,6 @@ micropython-iot
         +-- cds.py # 光センサーのライブラリ
         +-- env.py # 環境センサーのライブラリ
         +-- led.py # LEDのライブラリ
-        +-- umqtt.py # MQTT通信のライブラリ
 ```
 
 環境ごとの設定は `config.py` で行います。  
@@ -163,7 +162,7 @@ ampy -p /dev/tty.SLAB_USBtoUART ls
 
 ```
 ampy -p /dev/tty.SLAB_USBtoUART mkdir ulib
-ampy -p /dev/tty.SLAB_USBtoUART put ulib/umqtt.py ulib/umqtt.py
+ampy -p /dev/tty.SLAB_USBtoUART put ulib/led.py ulib/led.py
 ```
 
 ### サンプルコードの作成
@@ -207,7 +206,6 @@ D13ピンにLEDを接続すると、1秒間隔で点滅します。
 ampy -p /dev/tty.SLAB_USBtoUART put config.py
 ampy -p /dev/tty.SLAB_USBtoUART put app.py
 ampy -p /dev/tty.SLAB_USBtoUART mkdir ulib
-ampy -p /dev/tty.SLAB_USBtoUART put ulib/umqtt.py ulib/umqtt.py
 ampy -p /dev/tty.SLAB_USBtoUART put ulib/cds.py ulib/cds.py
 ampy -p /dev/tty.SLAB_USBtoUART put main.py
 ```
