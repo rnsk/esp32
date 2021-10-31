@@ -72,7 +72,7 @@ https://micropython.org/download/esp32/
 
 最新の安定版をダウンロードします。
 
-> GENERIC : esp32-idf4-20210202-v1.14.bin
+> v1.17 (20210902) .bin
 
 ### ボードの確認
 
@@ -85,14 +85,47 @@ crw-rw-rw-  1 root  wheel   18,   4  3 23 13:48 /dev/tty.SLAB_USBtoUART
 ・・・
 ```
 
-表示されたシリアルポートは以降の操作で使用しますので控えておいてください。
+表示されたシリアルポートは環境によって変わります。  
+以降の操作で頻繁に使用しますので環境変数に格納します。
+
+```
+export SERIALPORT="/dev/tty.SLAB_USBtoUART"
+```
+
+#### ボードの情報を確認する
+
+次のコマンドを実行すると、ボードの情報が表示されます。
+
+```
+esptool.py --port $SERIALPORT flash_id
+```
+
+実行結果
+
+```
+esptool.py v3.0
+Serial port /dev/tty.SLAB_USBtoUART
+Connecting........_
+Detecting chip type... ESP32
+Chip is ESP32-D0WDQ6 (revision 1)
+Features: WiFi, BT, Dual Core, 160MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: xx:xx:xx:xx:xx:xx
+Uploading stub...
+Running stub...
+Stub running...
+Manufacturer: 20
+Device: 4016
+Detected flash size: 4MB
+Hard resetting via RTS pin...
+```
 
 ### ボードの初期化
 
 次のコマンドを実行して、ボードのフラッシュを消去します。
 
 ```
-esptool.py --port /dev/tty.SLAB_USBtoUART erase_flash
+esptool.py --port $SERIALPORT erase_flash
 ```
 
 ### ファームウェアの書き込み
@@ -100,13 +133,14 @@ esptool.py --port /dev/tty.SLAB_USBtoUART erase_flash
 ダウンロードしたファームウェアを指定してボードに書き込みます。
 
 ```
-esptool.py --chip esp32 --port /dev/tty.SLAB_USBtoUART write_flash 0x1000 esp32-idf4-20210202-v1.14.bin
+esptool.py --chip esp32 --port $SERIALPORT write_flash 0x1000 esp32-20210902-v1.17.bin
 ```
 
 #### コマンドオプションについて
 
 - `--chip` : ボード（チップ）の種類
 - `--port` : ボードが接続されたシリアルポート
+- `--baud` : 転送速度
 
 `0x1000` はコマンドに渡される数値の指定です。（16進数）
 
@@ -115,7 +149,7 @@ esptool.py --chip esp32 --port /dev/tty.SLAB_USBtoUART write_flash 0x1000 esp32-
 REPLプロンプトを利用して実行します。
 
 ```
-screen /dev/tty.SLAB_USBtoUART 115200
+screen -L $SERIALPORT 115200
 ```
 
 `help()` と入力して enter を押すと次のように表示されます。
@@ -129,6 +163,10 @@ For access to the hardware use the 'machine' module:
 ```
 
 `ctrl + a + k` で終了確認のプロンプトが表示されるので `y` を入力して終了します。
+
+#### コマンドオプションについて
+
+- `-L` : ログファイルに出力
 
 ## MicroPython の実行
 
@@ -150,19 +188,8 @@ ESP32では、起動時に `boot.py` が実行され、その後存在すれば 
 例：転送済みのファイルを確認する
 
 ```
-ampy -p /dev/tty.SLAB_USBtoUART ls
+ampy -p $SERIALPORT --baud 115200 ls
 /boot.py
-```
-
-#### ディレクトリを転送する場合
-
-ディレクトリの転送は、ボード上にディレクトリを作成したあと、パスを指定してファイルを転送します。
-
-例：ulib ディレクトリを転送する
-
-```
-ampy -p /dev/tty.SLAB_USBtoUART mkdir ulib
-ampy -p /dev/tty.SLAB_USBtoUART put ulib/led.py ulib/led.py
 ```
 
 ### サンプルコードの作成
@@ -185,7 +212,7 @@ while True:
 つづいて `main.py` を転送します。
 
 ```
-ampy -p /dev/tty.SLAB_USBtoUART put main.py
+ampy -p $SERIALPORT --baud 115200 put main.py
 ```
 
 D13ピンにLEDを接続すると、1秒間隔で点滅します。
@@ -203,21 +230,18 @@ D13ピンにLEDを接続すると、1秒間隔で点滅します。
 転送コマンドの例
 
 ```
-ampy -p /dev/tty.SLAB_USBtoUART put config.py
-ampy -p /dev/tty.SLAB_USBtoUART put app.py
-ampy -p /dev/tty.SLAB_USBtoUART mkdir ulib
-ampy -p /dev/tty.SLAB_USBtoUART put ulib/cds.py ulib/cds.py
-ampy -p /dev/tty.SLAB_USBtoUART put main.py
+ampy -p $SERIALPORT put config.py
+ampy -p $SERIALPORT put app.py
+ampy -p $SERIALPORT put ulib
+ampy -p $SERIALPORT put main.py
 ```
-
-ディレクトリは最初の転送時のみ作成します。以降は作成する必要はありません。
 
 ### プログラムを止めたい場合
 
 ボード上の main.py を削除することでプログラムが止まります。
 
 ```
-ampy -p /dev/tty.SLAB_USBtoUART rm main.py
+ampy -p $SERIALPORT rm main.py
 ```
 
 ## サンプルプログラム
